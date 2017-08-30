@@ -8,7 +8,7 @@ Links to Chirp:
 https://github.com/Miceuz/i2c-moisture-sensor
 https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
-Python Class by Göran Lundberg. https://github.com/GoranLundberg/chirp
+Python Class by Göran Lundberg. https://github.com/ageir/chirp
 
 Based on code by Jasper Wallace and Daniel Tamm
 https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
