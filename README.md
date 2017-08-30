@@ -9,6 +9,7 @@ https://github.com/Miceuz/i2c-moisture-sensor/
 https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
 
+
 Python Class by @ageir a.k.a. Göran Lundberg.
 https://github.com/ageir/chirp-rpi/
 
@@ -19,9 +20,10 @@ https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
 https://github.com/Miceuz/i2c-moisture-sensor/blob/master/README.md
 
 
-# Chirp Class Documentation.
+# Documentation.
 
-This is just a basic documentation, for more information please read the source code.
+This is only a basic documentation, for more information please read the source code.
+
 Python 2.6 or higher required due to @property and @function.setter
 
 ``` python 
