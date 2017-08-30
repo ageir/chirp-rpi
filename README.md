@@ -136,7 +136,7 @@ wake_time (int, float, optional): Time in seconds for sensor to wake up.
 
 ``` python 
 # Example 
-percent = moist_to_percent(moisture) 
+percent = chirp.moist_to_percent(moisture) 
 ```
 
 Convert a moisture capacitance value to percent using a calibrated
