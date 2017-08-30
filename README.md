@@ -1,29 +1,30 @@
-#  Raspberry Pi Python Class for Chirp
+# Raspberry Pi Python Class for Chirp
 Chirp is a capacitive soil moisture sensor with temperature and light sensor on board.
 
 It is Open Hardware and is made by Albertas Mickėnas at Catnip Electronics.
 
-For more information about Chirp:
+#### More information about Chirp:
 
 https://github.com/Miceuz/i2c-moisture-sensor/
 
 https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
+
 ## Features
->A trigger function to trigger all enabled sensors.
->
->Get soil moisture in percentage, requires calibration.
->
->Several temprature scales to choose from. Celcius, farenheit and kelvin.
->
->Temperature offset to calibrate temperature sensor.
->
->Change I2C address
->
->Deep sleep mode to save power.
+* A trigger function to trigger all enabled sensors.
+
+* Get soil moisture in percentage, requires calibration.
+
+* Several temprature scales to choose from. Celcius, Farenheit and Kelvin.
+
+* Temperature offset to calibrate temperature sensor.
+
+* Change I2C address
+
+* Deep sleep mode to save power.
 
 
-Based on code by Jasper Wallace and Daniel Tamm
+#### Based on code by Jasper Wallace and Daniel Tamm
 
 https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
 
