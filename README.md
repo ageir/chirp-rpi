@@ -4,9 +4,10 @@ It has soil moisture, temperature and light sensors.
 
 For more information about Chirp:
 https://github.com/Miceuz/i2c-moisture-sensor
+
 https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
-Python Class by Göran Lundberg. https://github.com/GoranLundberg/chirp
+Python Class by @ageir aka Göran Lundberg.
 
 Based on code by Jasper Wallace and Daniel Tamm
 https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
@@ -20,9 +21,10 @@ https://github.com/Miceuz/i2c-moisture-sensor/blob/master/README.md
 ```
 
 ##Attributes
+
+
 | attribute    | type | description             |
 |:-------------|:-----|:------------------------|
-
 | address | (int) | I2C address |
 | busy_sleep | (float) | Sleep time in seconds while waiting for a new measurement. Default: 0.01 second |
 | light | (int) | Light measurement. False if no measurement taken. |
