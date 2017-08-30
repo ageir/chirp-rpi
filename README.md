@@ -11,13 +11,15 @@ https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
 
 ## Features
-* A trigger function to trigger all enabled sensors.
+* A trigger function to trigger all enabled sensors. User selectable.
 
-* Get soil moisture in percentage, requires calibration.
+* Get soil moisture in percent (requires calibration) or capacitance value.
 
-* Several temprature scales to choose from. Celcius, Farenheit and Kelvin.
+* Several temperature scales to choose from. Celcius, Farenheit and Kelvin.
 
-* Temperature offset to calibrate temperature sensor.
+* Temperature offset to calibrate the temperature sensor.
+
+* Timestamps for all on board sensors.
 
 * Change I2C address
 
@@ -72,8 +74,8 @@ Python 2.6 or higher required due to @property and @function.setter
 | read_temp | (bool) | Set to True to enable temp measurement, else False. |
 | temp | (float) | Temperature measurement. False if no measurement taken. |
 | temp_offset | (float) | Offset for calibrating temperature. |
-| temp_scale | (str) | Temperature scale to return. Valid: 'celsius', 'farenheit' or 'kelvin' |
-| temp_timestamp | (datetime) | Timestamp for temp measurement. |
+| temp_scale | (str) | Temperature scale for the temp attribute. Valid: 'celsius', 'farenheit' or 'kelvin' |
+| temp_timestamp | (datetime) | Timestamp for the temperature measurement. |
 
 
 ## Methods 
@@ -122,7 +124,7 @@ Enter deep sleep mode.
 chirp.wake_up() 
 ```
 
-Wakes up the sensor from deep sleep mod.
+Wakes up the sensor from deep sleep mode.
 
 Sending a reset to the sensor while in deep sleep mode usually fails.
 But it triggers the sensor to wake up. We then wait for one second
@@ -271,7 +273,18 @@ finally:
     print('Bye!')
 
 ```
-## Advanced example with address change ability
+Example output:
+```
+Moisture  | Temp   | Brightness
+-------------------------------
+254  2.5% | 25.8°C | 8603
+256  2.9% | 25.8°C | 8779
+256  2.9% | 25.8°C | 8540
+256  2.9% | 25.8°C | 8800
+255  2.7% | 25.8°C | 8590
+```
+
+## Advanced example with address change ability and calibration
 
 This code is included in chirp.py
 
@@ -382,5 +395,30 @@ finally:
     print('Lowest moisture measured:  {}'.format(lowest_measurement))
     print('Highest moisture measured: {}'.format(highest_measurement))
     print('Bye!')
+
+```
+Example output:
+```
+Chirp soil moisture sensor.
+
+Sensor version:   0x23
+I2C address:      0x20
+
+Press Ctrl-C to exit.
+
+Moisture  | Temp   | Brightness
+-------------------------------
+251  2.2% | 28.5°C | 314
+255  2.9% | 28.5°C | 337
+254  2.7% | 28.5°C | 361
+255  2.9% | 28.5°C | 371
+255  2.9% | 28.5°C | 381
+253  2.5% | 28.5°C | 269
+^C
+Ctrl-C Pressed! Exiting.
+
+Lowest moisture measured: 251
+Highest moisture measured: 255
+Bye!
 
 ```
