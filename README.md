@@ -1,26 +1,40 @@
-#  Raspberry Pi Python Class for Chirp capacitive soil moisture sensor.
-Chirp is made by Catnip Electronics, Albertas Mickėnas
-It has soil moisture, temperature and light sensors.
+#  Raspberry Pi Python Class for Chirp
+Chirp is a capacitive soil moisture sensor with temperature and light sensor on board. It is Open Hardware and made by Albertas Mickėnas at Catnip Electronics.
 
 For more information about Chirp:
-https://github.com/Miceuz/i2c-moisture-sensor
-
+https://github.com/Miceuz/i2c-moisture-sensor/
 https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
-Python Class by @ageir aka Göran Lundberg.
+Python Class by @ageir a.k.a. Göran Lundberg.
 
 Based on code by Jasper Wallace and Daniel Tamm
 https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
 https://github.com/Miceuz/i2c-moisture-sensor/blob/master/README.md
 
 
-# Chirp 
+# Chirp Class Documentation.
+
+This is just a basic documentation, for more information please read the source code.
+Python 2.6 or higher required due to @property and @function.setter
 
 ``` python 
  class Chirp(bus=1, address=0x20, min_moist=False, max_moist=False, temp_scale='celsius', temp_offset=0, read_temp=True, read_moist=True, read_light=True) 
 ```
+## Arguments
+| argument    | type | default | options | description |
+|:-------------|:-----|:-----|:-----------------------|:-----|
+| bus | int | 1 | | I2C bus|
+| address | int | 0x20 | | I2C address
+| min_moist | int| False | | Set to a calibrated value to enable moist_percent |
+| max_moist | int | False | | Set to a calibrated value to enable moist_percent
+| temp_scale | str | 'celcius' | 'celcius', 'farenheit', 'kelvin' | Temperature scale to use. |
+| temp_offset | float | 0 | | Offset for calibrating temperature.
+| read_temp | bool | True | True or False | Enable or disable temp measurements.|
+| read_moist | bool | True | True or False | Enable or disable moisture measurements. |
+| read_light | bool | True |True or False | Enable or disable light measurements.
 
-##Attributes
+
+## Attributes
 
 
 | attribute    | type | description             |
@@ -41,7 +55,6 @@ https://github.com/Miceuz/i2c-moisture-sensor/blob/master/README.md
 | temp_scale | (str) | Temperature scale to return. Valid: 'celsius', 'farenheit' or 'kelvin' |
 | temp_timestamp | (datetime) | Timestamp for temp measurement. |
 
---------- 
 
 ## Methods 
 
