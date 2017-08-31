@@ -11,19 +11,21 @@ https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
 
 ## Features
-* A trigger function to trigger all enabled sensors. User selectable.
+* Uses a trigger function to trigger all enabled sensors. User selectable.
 
 * Get soil moisture in percent (requires calibration) or capacitance value.
 
 * Several temperature scales to choose from. Celcius, Farenheit and Kelvin.
 
-* Temperature offset to calibrate the temperature sensor.
+* Offset to calibrate the temperature sensor.
 
-* Timestamps for all on board sensors.
+* Measurement timestamps for all on board sensors.
 
-* Change I2C address
+* Built in support for changing the I2C address of the sensor.
 
-* Deep sleep mode to save power.
+* Deep sleep mode to conserve power.
+
+* Calibration tool for soil moisture.
 
 #### Created by @ageir, Göran Lundberg
 Github: https://github.com/ageir/chirp-rpi/
@@ -225,7 +227,7 @@ if not chirp.busy
     do something...
 ```
 
-Check if sensor is busy, returns True if busy, else Fals.
+Check if sensor is busy, returns True if busy, else False.
 
 ```
 Returns:
