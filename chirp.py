@@ -154,19 +154,18 @@ class Chirp(object):
     def wake_up(self, wake_time=1):
         """Wakes up the sensor from deep sleep mode
 
-        Sending a reset to the sensor while in deep sleep mode usually fails.
-        But it triggers the sensor to wake up. We then wait for one second
-        for the sensor to wake up. Wake up time can be adjusted. Below one
-        second is not recommended, since it usually fails to retrieve the
-        first measurement(s) if it's lower than that.
-
+        Sends a command (get firmware version) to the sensor in deep sleep mode
+        to wake it up. The command fails, but it triggers the sensor to wake up
+        We then wait for one second for the sensor to wake up. Wake up time can
+        be adjusted. Below one second is not recommended, since it usually
+        fails to retrieve the first measurement(s) if it's lower than that.
         Args:
             wake_time (int, float, optional): Time in seconds for sensor to wake up.
         """
         self.wake_time = wake_time
 
         try:
-            self.reset()
+            self.bus.read_byte_data(self.address, self._GET_VERSION)
         except OSError:
             pass
         finally:
