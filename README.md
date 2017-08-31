@@ -25,7 +25,8 @@ https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
 * Deep sleep mode to save power.
 
-
+#### Created by @ageir, Göran Lundberg
+Github: https://github.com/ageir/chirp-rpi/
 #### Based on code by Jasper Wallace and Daniel Tamm
 
 https://github.com/JasperWallace/chirp-graphite/blob/master/chirp.py
@@ -35,9 +36,37 @@ https://github.com/Miceuz/i2c-moisture-sensor/blob/master/README.md
 
 # Documentation.
 
-This is only a basic documentation, for more information please read the source code.
+For more information please read the source code.
 
-Python 2.6 or higher required due to @property and @function.setter
+Python 2.6 or higher required.
+
+## Calibration
+
+To be able to retrieve the moisture in percent you need to calibrate the sensor.
+The min_moist and max_moist values need to be defined. If these values are not adjusted properly for every induvidual sensor, the value for moist_percent might go below 0% and above 100%
+
+You can use chirp.py to help calibrating your sensors.
+
+```sh
+# python chirp.py
+```
+
+Leave the dry sensor in dry air for a while so that the lowest value is recorded.
+
+
+Then put the sensor in water so that it records the highest value.
+
+
+The chirp.py program will automatically print out the highest and lowest value recorded when Ctrl-C is pressed.
+
+
+Use these values for max_moist and min_moist.
+
+
+Please note that these values might drift a little with temperature changes.
+Make the calibration in the environment that you intend to use the sensor.
+
+## Class definition
 
 ``` python 
  class Chirp(bus=1, address=0x20, min_moist=False, max_moist=False, temp_scale='celsius', temp_offset=0, read_temp=True, read_moist=True, read_light=True) 
@@ -61,33 +90,33 @@ Python 2.6 or higher required due to @property and @function.setter
 
 | attribute    | type | description             |
 |:-------------|:-----|:------------------------|
-| address | (int) | I2C address |
-| busy_sleep | (float) | Sleep time in seconds while waiting for a new measurement. Default: 0.01 second |
-| light | (int) | Light measurement. False if no measurement taken. |
-| light_timestamp | (datetime) |Timestamp for light measurement. |
-| max_moist | (int) | Calibrated maximum value for moisture, required for moist_percent |
-| min_moist | (int) | Calibrated Minimum value for moisture, required for moist_percent |
-| moist | (int) | Moisture measurement. False if no measurement taken. |
-| moist_timestamp | (datetime) | Timestamp for moist measurement |
-| read_light | (bool) | Set to True to enable light measurement, else False. |
-| read_moist | (bool) | Set to True to enable moisture measurement, else False. |
-| read_temp | (bool) | Set to True to enable temp measurement, else False. |
-| temp | (float) | Temperature measurement. False if no measurement taken. |
-| temp_offset | (float) | Offset for calibrating temperature. |
-| temp_scale | (str) | Temperature scale for the temp attribute. Valid: 'celsius', 'farenheit' or 'kelvin' |
-| temp_timestamp | (datetime) | Timestamp for the temperature measurement. |
+| address | int | I2C address |
+| busy_sleep | float | Sleep time in seconds while waiting for a new measurement. Default: 0.01 second |
+| light | int | Light measurement. False if no measurement taken. |
+| light_timestamp | datetime |Timestamp for light measurement. |
+| max_moist | int | Calibrated maximum value for moisture, required for moist_percent |
+| min_moist | int | Calibrated Minimum value for moisture, required for moist_percent |
+| moist | int | Moisture measurement. False if no measurement taken. |
+| moist_timestamp | datetime | Timestamp for moist measurement |
+| read_light | bool | Set to True to enable light measurement, else False. |
+| read_moist | bool | Set to True to enable moisture measurement, else False. |
+| read_temp | bool | Set to True to enable temp measurement, else False. |
+| temp | float | Temperature measurement. False if no measurement taken. |
+| temp_offset | float | Offset for calibrating temperature. |
+| temp_scale | str | Temperature scale for the temp attribute. Valid: 'celsius', 'farenheit' or 'kelvin' |
+| temp_timestamp | datetime | Timestamp for the temperature measurement. |
 
 
 ## Methods 
 
  
-| method    | type | description   |
-|:----------|:-----|:--------------|
-| trigger() | | Triggers measurements on the activated sensor. | 
-| reset() | | Reset sensor. | 
-| sleep() | | Enter deep sleep mode. | 
-| wake_up() | | Wakes up the sensor from deep sleep mode. | 
-| moist_to_percent(int) | |  Convert a moisture capacitance value to percent. | 
+| method    | description   |
+|:----------|:--------------|
+| trigger() | Triggers measurements on the activated sensor. | 
+| reset() | Resets sensor. | 
+| sleep() | Sets the sensor in deep sleep mode, to conserve power. | 
+| wake_up() | Wakes the sensor up from deep sleep mode. | 
+| moist_to_percent(int) | Convert a moisture capacitance value to percent. | 
 
 
 ### trigger()
@@ -97,7 +126,7 @@ Python 2.6 or higher required due to @property and @function.setter
 chirp.trigger()
 ```
 
-Triggers measurements on the activated sensors.
+Triggers measurements on the activated sensors. To select which sensors to trigger use the attributes read_moist, read_light, read_temp. Set them to True for enabled, False to disabled.
 
 ### reset()
 
@@ -106,7 +135,7 @@ Triggers measurements on the activated sensors.
 chirp.reset() 
 ```
 
-Reset sensor.
+Resets the sensor.
 
 ### sleep()
 
@@ -115,7 +144,7 @@ Reset sensor.
 chirp.sleep() 
 ```
 
-Enter deep sleep mode.
+Puts the sensor in deep sleep mode to save power.
 
 ### wake_up(wake_time=1)
 
@@ -124,15 +153,20 @@ Enter deep sleep mode.
 chirp.wake_up() 
 ```
 
-Wakes up the sensor from deep sleep mode.
+Wakes the sensor up from deep sleep mode.
 
-Sending a reset to the sensor while in deep sleep mode usually fails.
-But it triggers the sensor to wake up. We then wait for one second
+```
+Args:
+wake_time (float, optional): Time in seconds for sensor to wake up.
+```
+
+Internal function:
+
+Sends a command (get firmware version) to the sensor in deep sleep mode to wake it up.
+The command fails, but it triggers the sensor to wake up. We then wait for one second
 for the sensor to wake up. Wake up time can be adjusted. Below one
 second is not recommended, since it usually fails to retrieve the
 first measurement(s) if it's lower than that.
-Args:
-wake_time (int, float, optional): Time in seconds for sensor to wake up.
 
 ### moist_to_percent(moisture)
 
@@ -145,16 +179,20 @@ Convert a moisture capacitance value to percent using a calibrated
 range for the sensor. Requires calibrated min_moist and max_moist
 values. Useful when converting values not directly from the sensor,
 ie from a database.
+
+```
 Args:
 moisture (int): The capitance/moisture value recieved from the sensor.
+
 Returns:
 int: Moisture in percent
+
 Raises:
 ValueError: If min_moist and max_moist are not defined.
-
+```
  ## Properties and setters 
 
-Avaliable @property and @function.setter
+Avaliable properties and setters.
 
 | property    | type | description   |
 |:----------|:-----|:--------------|
@@ -174,8 +212,10 @@ firmware_version = chirp.version
 
 Get firmware version for the sensor.
 
+```
 Returns:
 int: sensor firmware version
+```
 
 ### @property busy
 
@@ -187,9 +227,10 @@ if not chirp.busy
 
 Check if sensor is busy, returns True if busy, else Fals.
 
+```
 Returns:
 bool: true if busy taking measurements, else False
-
+```
 
 ### @property sensor_address
 
@@ -200,8 +241,12 @@ address = chirp.sensor_address
 
 Read I2C address from the sensor.
 
+
+```
 Returns:
 int: I2C address
+
+```
 
 ### @setter sensor_address
 
@@ -213,10 +258,14 @@ chirp.sensor_address = new_address
 
 Set a new I2C address for the sensor.
 
+
+```
 Args:
 new_addr (int): New I2C address. 3-119 or 0x03-0x77
+
 Raises:
 ValueError: If new_addr is not within required range.
+```
 
 ### @property moist_percent
 
@@ -225,14 +274,21 @@ ValueError: If new_addr is not within required range.
     moisture = chirp.moist_percent 
 ```
 
-
 Get moisture in percent.
 
 Requires calibrated min_moist and max_moist values.
+
+If these values are not adjusted for your sensor the value for
+moist_percent might go below 0% and above 100%
+
+
+```
 Returns:
 int: Moisture in percent
+
 Raises:
 ValueError: If min_moist and max_moist are not defined.
+```
 
 # Example code
 
