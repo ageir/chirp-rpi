@@ -15,7 +15,7 @@ https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/
 
 * Get soil moisture in percent (requires calibration) or capacitance value.
 
-* Several temperature scales to choose from. Celcius, Farenheit and Kelvin.
+* Several temperature scales to choose from. Celsius, Farenheit and Kelvin.
 
 * Offset to calibrate the temperature sensor.
 
@@ -80,7 +80,7 @@ Make the calibration in the environment that you intend to use the sensor.
 | address | int | 0x20 | 3-119 or 0x03-0x77 | I2C address
 | min_moist | int| False | | Set to a calibrated value to enable moist_percent |
 | max_moist | int | False | | Set to a calibrated value to enable moist_percent
-| temp_scale | str | 'celcius' | 'celcius', 'farenheit', 'kelvin' | Temperature scale to use. |
+| temp_scale | str | 'celsius' | 'celsius', 'farenheit', 'kelvin' | Temperature scale to use. |
 | temp_offset | float | 0 | | Offset for calibrating temperature.
 | read_temp | bool | True | True or False | Enable or disable temp measurements.|
 | read_moist | bool | True | True or False | Enable or disable moisture measurements. |

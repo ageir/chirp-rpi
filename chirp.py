@@ -251,7 +251,7 @@ class Chirp(object):
 
     def _read_temp(self):
         """To read temperature, read 2 bytes from register 5. Returns degrees
-        in celcius with one decimal. Adjusted for temperature offset
+        in celsius with one decimal. Adjusted for temperature offset
 
         Returns:
             float: Temperature in selected scale (temp_scale)
@@ -273,18 +273,18 @@ class Chirp(object):
         # The chirp sensor returns an integer. But the return measurement is
         # actually a float with one decimal. Needs to be converted to float by
         # dividing by ten. And adjusted for temperature offset (if used).
-        celcius = round(((measurement / 10) + self.temp_offset), 1)
+        celsius = round(((measurement / 10) + self.temp_offset), 1)
 
         # Check which temperature scale to return the measurement in.
         if self.temp_scale == 'celsius':
-            return celcius
+            return celsius
         elif self.temp_scale == 'farenheit':
             # °F = (°C × 9/5) + 32
-            farenheit = (celcius * 9 / 5) + 32
+            farenheit = (celsius * 9 / 5) + 32
             return farenheit
         elif self.temp_scale == 'kelvin':
             # K = °C + 273.15
-            kelvin = celcius + 273.15
+            kelvin = celsius + 273.15
             return kelvin
         else:
             raise ValueError(
