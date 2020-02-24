@@ -192,6 +192,7 @@ class Chirp(object):
         """
         if isinstance(new_addr, int) and (new_addr >= 3 and new_addr <= 119):
             self.bus.write_byte_data(self.address, 1, new_addr)
+            self.bus.write_byte_data(self.address, 1, new_addr)
             self.reset()
             self.address = new_addr
         else:
